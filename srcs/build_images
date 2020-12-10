@@ -1,0 +1,3 @@
+docker build -t mysql ./srcs/mysql
+docker build -t nginx ./srcs/nginx
+docker build -t wordpress ./srcs/wordpress
