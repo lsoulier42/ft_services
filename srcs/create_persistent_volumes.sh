@@ -1,1 +1,2 @@
-kubectl create -f ./mysql/persistent_volume.yaml
+kubectl create -f ./mysql/pv-mysql.yaml
+kubectl create -f ./influxdb/pv-influxdb.yaml

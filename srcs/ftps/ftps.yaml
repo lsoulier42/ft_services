@@ -1,32 +1,38 @@
 apiVersion: v1
 kind: Service
 metadata:
- name: wordpress
+ name: ftps
  annotations:
   metallb.universe.tf/allow-shared-ip: shared
 spec:
  selector:
-  app: wordpress
+  app: ftps
  type: LoadBalancer
  ports:
- - port: 5050
-   name: wordpress-http
+  - port: 21
+    name: ftp21
+  - port: 20
+    name: ftp20
+  - port: 30000
+    name: ftp30000
+  - port: 30001
+    name: ftp30001
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: wordpress
+ name: ftps
 spec:
  replicas: 1
  selector:
   matchLabels:
-   app: wordpress
+   app: ftps
  template:
   metadata:
    labels:
-    app: wordpress
+    app: ftps
   spec:
    containers:
-   - name: wordpress
-     image: wordpress:latest
+   - name: ftps
+     image: ftps:latest
      imagePullPolicy: Never

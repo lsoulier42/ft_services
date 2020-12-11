@@ -4,12 +4,15 @@ WORKDIR /home
 
 RUN apk update && apk add mariadb mariadb-client mariadb-server-utils
 
+COPY ./create_db.sql /home/
+
 RUN mkdir -p /run/mysqld \
-	&& chown -R mysql:mysql /run/mysqld
+	&& chown -R mysql:mysql /run/mysqld \
+	&& chown -R mysql:mysql /var/lib/mysql \
+	&& mysql_install_db --user=mysql --ldata=/var/lib/mysql \
+	&& mysqld --user=mysql --bootstrap --verbose=0 < /home/create_db.sql
 
 COPY ./run_mysql.sh /home/
-
-COPY ./create_db.sql /home/
 
 COPY ./my.cnf /etc/
 

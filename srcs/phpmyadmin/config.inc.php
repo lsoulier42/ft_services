@@ -16,7 +16,6 @@ declare(strict_types=1);
  * cookie. Needs to be 32 chars long.
  */
 $cfg['blowfish_secret'] = 'ajdifjadifjaidjfaij67890'; 
-
 /**
  * Servers configuration
  */
@@ -29,10 +28,12 @@ $i++;
 /* Authentication type */
 $cfg['Servers'][$i]['auth_type'] = 'cookie';
 /* Server parameters */
-$cfg['Servers'][$i]['host'] = 'mysql:3306';
+$cfg['Servers'][$i]['host'] = 'mysql';
+$cfg['Servers'][$i]['port'] = 3306;
+$cfg['Servers'][$i]['connect_type'] = 'tcp';
 $cfg['Servers'][$i]['compress'] = false;
 $cfg['Servers'][$i]['AllowNoPassword'] = true;
-
+$cfg['Servers'][$i]['extension'] = 'mysqli';
 /**
  * phpMyAdmin configuration storage settings.
  */
@@ -153,3 +154,4 @@ $cfg['SaveDir'] = '';
  * You can find more configuration options in the documentation
  * in the doc/ folder or at <https://docs.phpmyadmin.net/>.
  */
+$cfg['PmaAbsoluteUri'] = $_SERVER['HTTP_HOST'];
