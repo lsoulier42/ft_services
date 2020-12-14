@@ -2,7 +2,8 @@ FROM alpine:latest
 
 WORKDIR /var/www
 
-RUN apk update && apk add nginx openssl && mkdir -p /run/nginx
+RUN apk update && apk add nginx openssl telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+	&& mkdir -p /run/nginx && mkdir -p /etc/telegraf
 
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-keyout /etc/ssl/private/nginx-selfsigned.key \
@@ -13,6 +14,8 @@ RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 RUN adduser -D -g 'www' www && chown -R www:www /var/lib/nginx && chown -R www:www /var/www
 
 COPY ./nginx.conf /etc/nginx/
+
+COPY ./telegraf.conf /etc/telegraf/
 
 COPY ./default.conf /etc/nginx/conf.d/
 

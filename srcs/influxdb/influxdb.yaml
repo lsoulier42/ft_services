@@ -1,4 +1,17 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+ name: influxdb
+spec:
+ storageClassName: manual
+ capacity:
+  storage: 1Gi
+ accessModes:
+  - ReadWriteOnce
+ hostPath:
+  path: /data/influxdb
+---
+apiVersion: v1
 kind: Service
 metadata:
  name: influxdb
@@ -12,7 +25,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
- name: influxdb-pvc
+ name: influxdb
 spec:
  storageClassName: manual
  accessModes:
@@ -47,4 +60,4 @@ spec:
    volumes:
     - name: influx-data
       persistentVolumeClaim:
-       claimName: influxdb-pvc
+       claimName: influxdb

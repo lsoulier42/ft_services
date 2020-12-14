@@ -1,2 +1,3 @@
 telegraf --config /etc/telegraf/telegraf.conf &
-vsftpd /etc/vsftpd/vsftpd.conf
+php-fpm7
+nginx

@@ -2,7 +2,7 @@ FROM alpine:latest
 
 WORKDIR /home
 
-RUN apk upgrade && apk add vsftpd openssl
+RUN apk upgrade && apk add vsftpd openssl telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ && mkdir -p /etc/telegraf
 
 RUN { echo "ftp_password"; echo "ftp_password"; } | adduser ftp_user
 
@@ -13,6 +13,8 @@ RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 	-addext 'subjectAltName=DNS:42.fr'
 
 COPY ./vsftpd.conf /etc/vsftpd/ 
+
+COPY ./telegraf.conf /etc/telegraf/
 
 COPY ./run_ftps.sh /home/
 
