@@ -17,8 +17,6 @@ COPY ./nginx.conf /etc/nginx/
 
 COPY ./telegraf.conf /etc/telegraf/
 
-COPY ./default.conf /etc/nginx/conf.d/
-
 COPY ./index.html /var/www/localhost/
 
 COPY ./run_nginx.sh /var/www/

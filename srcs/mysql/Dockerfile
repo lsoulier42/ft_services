@@ -2,14 +2,21 @@ FROM alpine:latest
 
 WORKDIR /home
 
-RUN apk update && apk add mariadb mariadb-client mariadb-server-utils \
-	&& mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+ARG minikube_ip
 
-COPY ./create_db.sql /home/
+RUN apk update && apk add mariadb mariadb-client mariadb-server-utils \
+    telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+	&& mkdir -p /etc/telegraf && mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
+
+COPY ./wordpress.sql /home/
+
+RUN sed -i -e "s/192.168.49.2/$minikube_ip/g" /home/wordpress.sql
 
 COPY ./run_mysql.sh /home/
 
 COPY ./my.cnf /etc/
+
+COPY ./telegraf.conf /etc/telegraf/
 
 EXPOSE 3306
 

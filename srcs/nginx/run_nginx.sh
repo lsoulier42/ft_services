@@ -1,2 +1,2 @@
 telegraf --config /etc/telegraf/telegraf.conf &
-nginx
+nginx -c /etc/nginx/nginx.conf
