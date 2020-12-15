@@ -2,7 +2,7 @@ FROM alpine:latest
 
 WORKDIR /var/www
 
-RUN apk update && apk add nginx openssl telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
+RUN apk update && apk add nginx tar openssl telegraf --repository http://dl-cdn.alpinelinux.org/alpine/edge/community/ \
 	&& mkdir -p /run/nginx && mkdir -p /etc/telegraf
 
 RUN	openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
@@ -17,7 +17,9 @@ COPY ./nginx.conf /etc/nginx/
 
 COPY ./telegraf.conf /etc/telegraf/
 
-COPY ./index.html /var/www/localhost/
+COPY ./template.tar.gz /var/www/
+
+RUN tar -xvf template.tar.gz -C /var/www/localhost
 
 COPY ./run_nginx.sh /var/www/
 

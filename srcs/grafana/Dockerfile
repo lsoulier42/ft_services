@@ -28,7 +28,7 @@ COPY ./run_grafana.sh /home/
 
 COPY ./telegraf.conf /etc/telegraf/
 
-COPY ./grafana.ini /etc/grafana/
+COPY ./grafana.db /var/lib/grafana/grafana.db
 	
 EXPOSE 3000
 
