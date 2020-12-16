@@ -1,24 +1,24 @@
-echo "Starting ft_services project from 42 Paris School\n"
-echo "This project was made by Louise Soulier - lsoulier\n"
-echo "First we have to stop minikube if it's running\n"
-minikube stop
-echo "Then let's wake up docker\n"
-docker ps
-echo "We can start minikube\n"
+printf "\033[0;32mStarting ft_services project from 42 Paris School\033[0m\n"
+printf "\033[0;32mThis project was made by Louise Soulier - lsoulier\033[0m\\n"
+printf "\033[0;32mFirst let's get a clean minikube VM\033[0m\n"
+minikube delete
+printf "\033[0;32mWe can start minikube\033[0m\n"
 minikube start
-echo "Let's set the docker environment to minikube context\n"
+printf "\033[0;32mLet's set the docker environment to minikube context\033[0m\n"
 eval $(minikube docker-env)
-echo "Enabling the kubernetes dashboard...\n"
+printf "\033[0;32mEnabling the kubernetes dashboard...\033[0m\\n"
+minikube addons enable metrics-server
 minikube addons enable dashboard
-echo "Starting the bare metal LoadBalancer include with minikube...\n"
+printf "\033[0;32mStarting the bare metal LoadBalancer include with minikube...\033[0m\n"
 minikube addons enable metallb
-chmod 755 ./srcs/scripts/apply_metallb_config.sh
-./srcs/scripts/apply_metallb_config.sh
-echo "We have to build docker images now :\n"
-chmod 755 ./srcs/scripts/build_images.sh
-./srcs/scripts/build_images.sh
-echo "Then we can start services :\n"
-chmod 755 ./srcs/scripts/start_services.sh
-./srcs/scriptis/start_services.sh
-echo "And finally we can start the dashboard and begin tests :\n"
+cd ./srcs/scripts
+chmod 755 apply_metallb_config.sh
+bash apply_metallb_config.sh
+printf "\033[0;32mWe have to build docker images now :\033[0m\n"
+chmod 755 build_images.sh
+bash build_images.sh
+printf "\033[0;32mThen we can start services :\033[0m\n"
+chmod 755 start_services.sh
+bash start_services.sh
+printf "\033[0;32mAnd finally we can start the dashboard and begin tests :\033[0m\n"
 minikube dashboard
