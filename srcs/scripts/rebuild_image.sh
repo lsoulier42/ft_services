@@ -4,7 +4,8 @@ else
   if [ "$1" = "mysql" ] || [ "$1" = "influxdb" ] ||  [ "$1" = "nginx" ] || [ "$1" = "ftps" ] || [ "$1" = "wordpress" ] || [ "$1" = "phpmyadmin" ] || [ "$1" = "grafana" ]; then
 	  eval $(minikube docker-env)
 	  if [ "$1" = "ftps" ] || [ "$1" = "mysql" ]; then
-	    BUILD_ARG="--build-arg minikube_ip=$(minikube ip)"
+		MINIKUBE_IP="$(kubectl get node -o=custom-columns='DATA:status.addresses[0].address' | sed -n 2p)"	    
+		BUILD_ARG="--build-arg minikube_ip=$MINIKUBE_IP"
 	  else
 	    BUILD_ARG=""
 	  fi
