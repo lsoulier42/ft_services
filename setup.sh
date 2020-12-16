@@ -1,7 +1,7 @@
 printf "\033[0;32mStarting ft_services project from 42 Paris School\033[0m\n"
 printf "\033[0;32mThis project was made by Louise Soulier - lsoulier\033[0m\\n"
 printf "\033[0;32mLet's start by getting sudo rights for docker\033[0m\n"
-sudo usermod -aG docker $(whoami);
+sudo chmod 777 /var/run/docker.sock
 printf "\033[0;32mLet's get a clean minikube VM\033[0m\n"
 minikube delete
 printf "\033[0;32mWe can start minikube\033[0m\n"
